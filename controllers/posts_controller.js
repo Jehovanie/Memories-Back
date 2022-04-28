@@ -15,9 +15,9 @@ export const getPost = async (req, res) => {
 }
 
 export const newPost = async (req, res) => {
-    const post = req.body;
 
-    const newPost = new PostMessage(post);
+    const post = req.body; //data by the post
+    const newPost = new PostMessage(post); //model
 
     try {
 

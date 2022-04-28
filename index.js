@@ -3,8 +3,6 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 
-import postRoutes from "./routes/posts.js";
-
 
 const app = express();
 
@@ -23,5 +21,7 @@ mongoose.connect(CONNECTION_URL)
     .catch((error) => console.log("ERROR : " + error.message));
 
 /** ======================== ROUTES DEFINITIONS ========================== */
+
+import postRoutes from "./routes/posts_routes.js";
 
 app.use("/posts", postRoutes);
