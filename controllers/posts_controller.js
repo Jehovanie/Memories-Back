@@ -55,3 +55,13 @@ export const deletePost = async (req, res) => {
 
     res.json({ message: "Post deleted successfully" });
 }
+
+export const likePost = async (req, res) => {
+
+    const { id } = req.params;
+
+    const post = await PostMessage_Model.findById(id);
+    const update_like_post = await PostMessage_Model.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true })
+
+    res.json(update_like_post);
+}
