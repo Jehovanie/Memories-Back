@@ -4,6 +4,11 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 
+/**
+ *  C'est le point d'entre dans l'application.
+ * 
+ */
+
 // dotenv.config()
 
 /**
@@ -11,15 +16,25 @@ import dotenv from "dotenv";
  *  -import dotenv from "dotenv"
  * configure dotenv
  *  -dotenv.config()
- * and 
+ * and
  *  uncomment the bleow of the connetcion_url
  */
 
-
+///instancier l'application express.
 const app = express();
 
+/**
+ * bodyParser est un morceau de middleware express , afin de lire les données HTTP POST
+ * qui lit l'entrée d'un formulaire et le stocke en tant qu'objet javascript accessible par l'intermediaire de "req.body"
+ */
+
+///analyser le text en tant que JSON et expose 'objet résultant sur le  "req.body"
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
+
+///analyser le text en tant que donnée codées URL ce qui est la facon dont les navigateurs ont tendances à envoyer les données de formulaires réguliers configurés en POST
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+
+/** standard CORS est utilisé afin de permettre les requêtte multi-origin */
 app.use(cors());
 
 
@@ -36,4 +51,5 @@ mongoose.connect(CONNECTION_URL) /// change connection_url to process.env.CONNEC
 
 import postRoutes from "./routes/posts_routes.js";
 
+/** definir une route : http://localhost:5000/posts */
 app.use("/posts", postRoutes);
