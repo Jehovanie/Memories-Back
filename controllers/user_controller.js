@@ -6,35 +6,42 @@ import User from "../models/user_models.js";
 export const signin = async (req, res) => {
 
     ///dictraction the email, 
-    const { email, password } = rep.body;
-
+    const { email, password } = req.body;
+    console.log("0...")
     try {
         ///check the user by the email in the database.
         const existingUser = await User.findOne({ email });
-
+        console.log("1...")
         if (!existingUser) {
 
             ///if not exist
             return res.status(404).json({ message: "User doesn't exist." })
         }
 
+        console.log("2...")
+
+
         ///verifier the password
         const isPasswordCorrect = await bcrypt.compare(password, existingUser.password);
+        console.log("3...")
 
         if (!isPasswordCorrect) {
 
             ///if wrong password 
             return res.status(400).json({ message: "Invalid credentials." })
         }
+        console.log("4...")
 
         ///create token.
-        const token = jwt.sign({ email: existingUser.email, id: existingUser._id }, "text", { expiresIn: "1h" });
+        const token = jwt.sign({ email: existingUser.email, id: existingUser._id }, "test", { expiresIn: "1h" });
+        console.log("5...")
 
-        return res.status(200).json({ result: existingUser, token })
+        res.status(200).json({ result: existingUser, token })
+        console.log("6...")
 
     } catch (error) {
 
-        return res.status(500).json({ message: "Something went wrong." })
+        res.status(500).json({ message: "Something went wrong." })
     }
 }
 
@@ -47,7 +54,7 @@ export const signup = async (req, res) => {
     try {
         /// check is this email already use by other users.
 
-        const existingUser = User.findOne({ email });
+        const existingUser = await User.findOne({ email });
 
         if (existingUser) {
             //the email is already exist;
@@ -68,9 +75,12 @@ export const signup = async (req, res) => {
         ///create the token .
         const token = jwt.sign({ email: result.email, id: result._id }, "test", { expiresIn: "1h" });
 
-        return res.status(200).json({ result, token });
+        res.status(200).json({ result, token });
 
     } catch (error) {
-        return res.status(500).json({ message: "Something went wrong" })
+
+        console.log(error);
+
+        res.status(500).json({ message: "Something went wrong" })
     }
 }
