@@ -31,7 +31,8 @@ const app = express();
 ///analyser le text en tant que JSON et expose 'objet résultant sur le  "req.body"
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 
-///analyser le text en tant que donnée codées URL ce qui est la facon dont les navigateurs ont tendances à envoyer les données de formulaires réguliers configurés en POST
+///analyser le text en tant que donnée codées URL 
+//ce qui est la facon dont les navigateurs ont tendances à envoyer les données de formulaires réguliers configurés en POST
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 /** standard CORS est utilisé afin de permettre les requêtte multi-origin */
@@ -44,7 +45,7 @@ const CONNECTION_URL = "mongodb://localhost:27017/mernStack"; /// uncomment this
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(CONNECTION_URL) /// change connection_url to process.env.CONNECTION_URL
-    .then(() => app.listen(PORT, () => console.log(`Server running on port ${PORT}`)))
+    .then(() => app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`)))
     .catch((error) => console.log("ERROR : " + error.message));
 
 /** ======================== ROUTES DEFINITIONS ========================== */
