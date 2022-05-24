@@ -51,6 +51,8 @@ mongoose.connect(CONNECTION_URL) /// change connection_url to process.env.CONNEC
 /** ======================== ROUTES DEFINITIONS ========================== */
 
 import postRoutes from "./routes/posts_routes.js";
+import userRoutes from "./routes/user_routes.js";
 
 /** definir une route : http://localhost:5000/posts */
 app.use("/posts", postRoutes);
+app.use("/user", userRoutes);
