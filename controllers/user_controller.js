@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 
 import User from "../models/user_models.js";
 
-export const signin = async (req, res) => {
+export const signing = async (req, res) => {
 
     ///dictraction the email, 
     const { email, password } = req.body;
