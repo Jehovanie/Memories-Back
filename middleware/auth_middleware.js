@@ -11,7 +11,7 @@ const auth = async (req, res, next) => {
         ///we want to check , how is this user connected
 
         //to get the token from the front-end
-        const token = req.headers.authorization?.split(" ")[1];
+        const token = req.headers.Authorization?.split(" ")[1];
 
         ///the is many token possible : from the google auth 
         const isCustomAuth = token?.length < 500

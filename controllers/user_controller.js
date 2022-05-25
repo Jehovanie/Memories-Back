@@ -7,37 +7,30 @@ export const signing = async (req, res) => {
 
     ///dictraction the email, 
     const { email, password } = req.body;
-    console.log("0...")
     try {
         ///check the user by the email in the database.
         const existingUser = await User.findOne({ email });
-        console.log("1...")
         if (!existingUser) {
 
             ///if not exist
             return res.status(404).json({ message: "User doesn't exist." })
         }
 
-        console.log("2...")
 
 
         ///verifier the password
         const isPasswordCorrect = await bcrypt.compare(password, existingUser.password);
-        console.log("3...")
 
         if (!isPasswordCorrect) {
 
             ///if wrong password 
             return res.status(400).json({ message: "Invalid credentials." })
         }
-        console.log("4...")
 
         ///create token.
         const token = jwt.sign({ email: existingUser.email, id: existingUser._id }, "test", { expiresIn: "1h" });
-        console.log("5...")
 
         res.status(200).json({ result: existingUser, token })
-        console.log("6...")
 
     } catch (error) {
 

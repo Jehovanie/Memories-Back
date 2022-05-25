@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 import PostMessage_Model from "../models/post_models.js";
 
-
 export const getPost = async (req, res) => {
 
     try {
@@ -24,8 +23,7 @@ export const newPost = async (req, res) => {
     const post = req.body;
 
     //model
-    const newPost = new PostMessage_Model(post);
-
+    const newPost = new PostMessage_Model({ ...post , creator: req.userId , createdAt : new Date().toISOString()});
     try {
 
         ///we can do that because the name of the collection is already define in the mogoose model
@@ -75,22 +73,27 @@ export const deletePost = async (req, res) => {
 export const likePost = async (req, res) => {
 
     const { id } = req.params;
-
+    console.log("1...")
+    console.log(req.userId)
     ///check user connect
     if (!req.userId) {
         return res.json({ message: "Unauthenticated" });
     }
+    console.log("2...")
 
     //check id
     if (!mongoose.Types.ObjectId.isValid(_id)) {
         return res.status(404).send('No post with that id !!!')
     }
+    console.log("3...")
 
     ///get the post by the id
     const post = await PostMessage_Model.findById(id);
+    console.log("4...")
 
     /// check if this user id is already in like section.
     const index = post.likes.findIndex((id) => id === String(req.userId));
+    console.log("5...")
 
     if (index === -1) {
         /// the user connect don't like the post.
@@ -101,8 +104,10 @@ export const likePost = async (req, res) => {
         ///the user is already like the post.
         post.likes = post.likes.filter((id) => id !== String(req.userId))
     }
+    console.log("6...")
 
     const update_like_post = await PostMessage_Model.findByIdAndUpdate(id, post, { new: true })
+    console.log("7...")
 
     res.json(update_like_post);
 }
