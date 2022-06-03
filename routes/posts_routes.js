@@ -1,5 +1,5 @@
 import express from 'express';
-import { getPost, newPost, updatePost, deletePost, likePost } from '../controllers/posts_controller.js';
+import { getPost, newPost, updatePost, deletePost, likePost, getPostsBySearch } from '../controllers/posts_controller.js';
 
 import authMiddleware from '../middleware/auth_middleware.js';
 
@@ -10,6 +10,9 @@ const router = express.Router();
 
 ///route avec un methode get
 router.get('/', getPost);
+
+///get post by the param search
+router.get('/search', getPostsBySearch);
 
 ///methode post
 router.post('/', authMiddleware, newPost);
