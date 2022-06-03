@@ -20,7 +20,6 @@ export const getPost = async (req, res) => {
 export const getPostsBySearch = async (req, res) => {
 
     const { searchQuery, tags } = req.query;
-    console.log(req.query)
     try {
 
         ///try to get all post by the mogoose with find
@@ -42,7 +41,7 @@ export const getPostsBySearch = async (req, res) => {
             ]
         })
 
-        res.status(200).json({ data: posts });
+        res.status(200).json(posts);
 
     } catch (error) {
 
