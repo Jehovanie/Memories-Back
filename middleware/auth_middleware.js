@@ -15,12 +15,11 @@ const auth = async (req, res, next) => {
 
         ///the is many token possible : from the google auth 
         const isCustomAuth = token?.length < 500
-        
+
         let decodedData;
         if (token && isCustomAuth) {
             decodedData = jwt.verify(token, "test");
 
-            console.log(decodedData)
             req.userId = decodedData?.id
 
         } else {
