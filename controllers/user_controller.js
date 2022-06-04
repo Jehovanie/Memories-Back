@@ -13,10 +13,8 @@ export const signing = async (req, res) => {
         if (!existingUser) {
 
             ///if not exist
-            return res.status(404).json({ message: "User doesn't exist." })
+            return res.status(400).json({ message: "INVALID CREDENTIALS : User doesn't exist." })
         }
-
-
 
         ///verifier the password
         const isPasswordCorrect = await bcrypt.compare(password, existingUser.password);
@@ -24,7 +22,7 @@ export const signing = async (req, res) => {
         if (!isPasswordCorrect) {
 
             ///if wrong password 
-            return res.status(400).json({ message: "Invalid credentials." })
+            return res.status(400).json({ message: "INVALID CREDENTIALS : Password Incorrect." })
         }
 
         ///create token make sure the how mach time expire the token.
