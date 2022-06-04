@@ -41,6 +41,12 @@ export const getPostsBySearch = async (req, res) => {
             ]
         })
 
+        if (posts.length === 0) {
+            return res.status(200).json({
+                nothingFound: true,
+            })
+        }
+
         res.status(200).json(posts);
 
     } catch (error) {
