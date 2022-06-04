@@ -13,7 +13,7 @@ export const signing = async (req, res) => {
         if (!existingUser) {
 
             ///if not exist
-            return res.status(400).json({ message: "INVALID CREDENTIALS : User doesn't exist." })
+            return res.status(400).json({ message: "Invalid Credentials , User not found" })
         }
 
         ///verifier the password
@@ -22,7 +22,7 @@ export const signing = async (req, res) => {
         if (!isPasswordCorrect) {
 
             ///if wrong password 
-            return res.status(400).json({ message: "INVALID CREDENTIALS : Password Incorrect." })
+            return res.status(400).json({ message: "Invalid Credentials , Password Incorrect." })
         }
 
         ///create token make sure the how mach time expire the token.
@@ -31,7 +31,7 @@ export const signing = async (req, res) => {
         res.status(200).json({ result: existingUser, token })
 
     } catch (error) {
-
+        console.log(error);
         res.status(500).json({ message: "Something went wrong." })
     }
 }
@@ -49,12 +49,12 @@ export const signup = async (req, res) => {
 
         if (existingUser) {
             //the email is already exist;
-            return res.status(400).json({ message: "User already exist" });
+            return res.status(400).json({ message: "This email is already used for other another user" });
         }
 
         if (password !== confirmPassword) {
             ///check if the passworld is the same of the comfirm password
-            return res.status(400).json({ message: "Passworld don't match." })
+            return res.status(400).json({ message: "Password don't match , make sure" })
         }
 
         ///hash password by the bcrypd.
@@ -64,7 +64,7 @@ export const signup = async (req, res) => {
         const result = await User.create({ email, password: hashedPassword, name: `${firstname} ${lastname}` });
 
         ///create the token .
-        const token = jwt.sign({ email: result.email, id: result._id }, "test", { expiresIn: "1h" });
+        const token = jwt.sign({ email: result.email, id: result._id }, "test", { expiresIn: "15m" });
 
         res.status(200).json({ result, token });
 
