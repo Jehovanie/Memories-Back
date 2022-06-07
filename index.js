@@ -6,7 +6,10 @@ import dotenv from "dotenv";
 
 /**
  *  C'est le point d'entre dans l'application.
- * 
+ *   -instantiantion de l'app express
+ *   -implement de quelque midleware (body parse , cors)
+ *   -connection sur le database
+ *   -definition des differents routes
  */
 
 // dotenv.config()
@@ -41,19 +44,24 @@ app.use(cors());
 
 /** ==============  CONNECTION TO THE MONGODB =============== */
 
-// const CONNECTION_URL = "mongodb://localhost:27017/mernStack"; /// uncomment this to use dotenv
-const CONNECTION_URL = "mongodb+srv://jehovanieram:jehovanieram1998@cluster0.g2ner.mongodb.net/?retryWrites=true&w=majority"; /// uncomment this to use dotenv
+/* ---------- en developpement----------*/
+const CONNECTION_URL = "mongodb://localhost:27017/mernStack"; /// uncomment this to use dotenv
 
 const PORT = process.env.PORT || 5000;
 
-mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`)))
+mongoose.connect(CONNECTION_URL) /// change connection_url to process.env.CONNECTION_URL
+    .then(() => app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`))) /// uncomment this to use dotenv
     .catch((error) => console.log("ERROR : " + error.message));
 
+/* ---------- en production ----------*/
+// const CONNECTION_URL = "mongodb+srv://jehovanieram:jehovanieram1998@cluster0.g2ner.mongodb.net/?retryWrites=true&w=majority"; /// uncomment this to use dotenv
 
-// mongoose.connect(CONNECTION_URL) /// change connection_url to process.env.CONNECTION_URL
+// const PORT = process.env.PORT || 5000;
+
+// mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
 //     .then(() => app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`)))
 //     .catch((error) => console.log("ERROR : " + error.message));
+
 
 /** ======================== ROUTES DEFINITIONS ========================== */
 

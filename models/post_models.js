@@ -1,11 +1,18 @@
 import mongoose from "mongoose";
 
+/***
+ *  Definition de Schema mongoose.
+ *  Définition de modele mongoose.
+ *  
+ *  Export defalut.
+ */
+
 
 ////mongoose Schema
 const postSchema = mongoose.Schema({
     title: String,
     message: String,
-    name : String,
+    name: String,
     creator: String,
     tags: [String],
     selectedFile: String,

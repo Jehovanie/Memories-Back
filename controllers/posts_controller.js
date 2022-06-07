@@ -20,6 +20,7 @@ export const getPost = async (req, res) => {
 export const getPostsBySearch = async (req, res) => {
 
     const { searchQuery, tags } = req.query;
+
     try {
 
         ///try to get all post by the mogoose with find

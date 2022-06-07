@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 
 /**
+ * AUTHORIZATION :
  * wants to like a post
  * click the like button => auth middleware (next) => like controller ...
  */
