@@ -2,9 +2,8 @@ import mongoose from "mongoose";
 
 /***
  *  Definition de Schema mongoose.
- *  Définition de modele mongoose.
+ *  Export de modele mongoose.
  *  
- *  Export defalut.
  */
 
 
@@ -28,6 +27,4 @@ const postSchema = mongoose.Schema({
 
 
 ///mongoose model
-const PostMessage_Model = mongoose.model("PostMessage", postSchema); /// first name of the table , second schema of the tables
-
-export default PostMessage_Model;
+export default mongoose.model("PostMessage", postSchema); /// first name of the table , second schema of the tables
