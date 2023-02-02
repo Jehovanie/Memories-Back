@@ -29,7 +29,6 @@ router.post('/', authMiddleware, newPost);
 
 ///methode patch comme put
 router.patch('/:id', authMiddleware, updatePost);
-
 ///methode delete
 router.delete('/:id', authMiddleware, deletePost);
 
