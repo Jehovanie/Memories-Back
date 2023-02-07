@@ -27,4 +27,4 @@ const postSchema = mongoose.Schema({
 
 
 ///mongoose model
-export default mongoose.model("PostMessage", postSchema); /// first name of the table , second schema of the tables
+export default mongoose.model("Post", postSchema); /// first name of the table , second schema of the tables

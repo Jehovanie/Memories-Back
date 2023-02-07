@@ -3,13 +3,20 @@ import mongoose from "mongoose";
 import PostMessage_Model from "../models/post_models.js";
 
 export const getPost = async (req, res) => {
-
+    const { page } = req.query;
     try {
+        const LIMIT = 3;
+        const startIndex = (Number(page) - 1) * LIMIT;
+        const total = await PostMessage_Model.countDocuments({});
 
         ///try to get all post by the mogoose with find
-        const postMessages = await PostMessage_Model.find();
+        const posts = await PostMessage_Model.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
 
-        res.status(200).json(postMessages);
+        res.status(200).json({
+            data: posts,
+            currentPage: Number(page),
+            numberOfPages: Math.ceil(total / LIMIT)
+        });
 
     } catch (error) {
 
@@ -23,7 +30,7 @@ export const getPostsBySearch = async (req, res) => {
 
     try {
 
-        ///try to get all post by the mogoose with find
+        ///try to get all post by the mongoose with find
 
         /**
          *  QUERY -> /posts?page=1 -> page = 1
@@ -67,7 +74,7 @@ export const newPost = async (req, res) => {
 
         ///we can do that because the name of the collection is already define in the mogoose model
         await newPost.save();
-
+        console.log("post saved.")
         res.status(201).json(newPost);
 
     } catch (error) {

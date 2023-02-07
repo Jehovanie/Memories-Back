@@ -45,22 +45,22 @@ app.use(cors());
 /** ==============  CONNECTION TO THE MONGODB =============== */
 
 /* ---------- en developpement----------*/
-// const CONNECTION_URL = "mongodb://localhost:27017/mernStack"; /// uncomment this to use dotenv
-
-// const PORT = process.env.PORT || 5000;
-
-// mongoose.connect(CONNECTION_URL) /// change connection_url to process.env.CONNECTION_URL
-//     .then(() => app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`))) /// uncomment this to use dotenv
-//     .catch((error) => console.log("ERROR : " + error.message));
-
-/* ---------- en production ----------*/
-const CONNECTION_URL = "mongodb+srv://jehovanieram:jehovanieram1998@cluster0.g2ner.mongodb.net/?retryWrites=true&w=majority"; /// uncomment this to use dotenv
+const CONNECTION_URL = "mongodb://localhost:27017/memorise_database"; /// uncomment this to use dotenv
 
 const PORT = process.env.PORT || 5000;
 
-mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`)))
+mongoose.connect(CONNECTION_URL) /// change connection_url to process.env.CONNECTION_URL
+    .then(() => app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`))) /// uncomment this to use dotenv
     .catch((error) => console.log("ERROR : " + error.message));
+
+/* ---------- en production ----------*/
+// const CONNECTION_URL = "mongodb+srv://jehovanieram:jehovanieram1998@cluster0.g2ner.mongodb.net/?retryWrites=true&w=majority"; /// uncomment this to use dotenv
+
+// const PORT = process.env.PORT || 5000;
+
+// mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+//     .then(() => app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`)))
+//     .catch((error) => console.log("ERROR : " + error.message));
 
 
 /** ======================== ROUTES DEFINITIONS ========================== */
