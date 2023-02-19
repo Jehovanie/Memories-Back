@@ -1,5 +1,5 @@
 import express from 'express';
-import { getPost, getPosts, newPost, updatePost, deletePost, likePost, getPostsBySearch } from '../controllers/posts_controller.js';
+import { getPost, getPosts, newPost, updatePost, deletePost, likePost, getPostsBySearch, commentPost } from '../controllers/posts_controller.js';
 import authMiddleware from '../middleware/auth_middleware.js';
 
 
@@ -36,6 +36,8 @@ router.delete('/:id', authMiddleware, deletePost);
 
 ///methode patch comme put
 router.patch('/:id/likePost', authMiddleware, likePost);
+
+router.post('/:id/comment', authMiddleware, commentPost);
 
 ////export router.
 export default router;

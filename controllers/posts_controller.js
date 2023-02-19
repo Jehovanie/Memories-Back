@@ -108,6 +108,7 @@ export const updatePost = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send("No post with that id !!!")
 
     const updatedPost = await PostMessage_Model.findByIdAndUpdate(_id, post, { new: true });
+
     res.json(updatedPost);
 }
 
@@ -156,4 +157,28 @@ export const likePost = async (req, res) => {
     const update_like_post = await PostMessage_Model.findByIdAndUpdate(id, post, { new: true })
 
     res.json(update_like_post);
+}
+
+
+export const commentPost = async (req, res) => {
+
+    const { id } = req.params;
+    const { value } = req.body;
+
+    if (!req.userId) {
+        return res.json({ message: "Unauthenticated" })
+    }
+
+    //check id
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).send('No post with that id !!!')
+    }
+
+    const post = await PostMessage_Model.findById(id);
+
+    post.comments.push(value);
+
+    const updatedPost = await PostMessage_Model.findByIdAndUpdate(id, post, { new: true })
+
+    res.json(updatedPost);
 }
