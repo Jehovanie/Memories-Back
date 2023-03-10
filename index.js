@@ -65,6 +65,10 @@ mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: tr
 
 /** ======================== ROUTES DEFINITIONS ========================== */
 
+app.get("/", (request, response) => {
+    response.status(200).send("Express on Vercel");
+});
+
 import postRoutes from "./routes/posts_routes.js";
 import userRoutes from "./routes/user_routes.js";
 
@@ -72,6 +76,4 @@ import userRoutes from "./routes/user_routes.js";
 app.use("/posts", postRoutes);
 app.use("/user", userRoutes);
 
-app.get("/", (request, response) => {
-    response.send("Express on Vercel");
-});
+
