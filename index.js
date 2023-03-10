@@ -72,6 +72,6 @@ import userRoutes from "./routes/user_routes.js";
 app.use("/posts", postRoutes);
 app.use("/user", userRoutes);
 
-app.use("/", (request, response) => {
-    response.json("Ca marche ...")
+app.get("/", (request, response) => {
+    response.send("Express on Vercel");
 });
