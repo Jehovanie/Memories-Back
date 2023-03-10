@@ -71,3 +71,7 @@ import userRoutes from "./routes/user_routes.js";
 /** definir une route : http://localhost:5000/posts */
 app.use("/posts", postRoutes);
 app.use("/user", userRoutes);
+
+app.use("/", (request, response) => {
+    response.json("Ca marche ...")
+});
